@@ -55,6 +55,9 @@ def cleanup():
     pid_set_copy = pid_set.copy()
     for pid in pid_set_copy:
         stop_process(pid)
+    subprocess.run('python3 /home/$USER/JKW_PROJECT/swarm_vins_ws/src/swarm_vins/network_utils/shfiles/tmp/stop_all_rosnode.py', shell=True)
+    time.sleep(0.5)
+    subprocess.run('echo "reboot" | /home/coolas/JKW_PROJECT/swarm_vins_ws/src/swarm_vins/network_utils/shfiles/tmp/mavlink_shell.py', shell=True)
 
 # 主菜单函数
 def main_menu(log_dir):
@@ -65,9 +68,10 @@ def main_menu(log_dir):
         print("2. 重启 rspx4")
         print("3. 执行 takeoff")
         print("4. 执行 land")
+        print("5. 开始记录rosbag")
         print("0. 退出")
 
-        choice = input("请输入选项（0-4）：")
+        choice = input("请输入选项：")
 
         if choice == '1':
             launch_process('roslaunch ego_planner rviz.launch', f'{log_dir}/ego_planner_rviz.log')
@@ -84,6 +88,8 @@ def main_menu(log_dir):
             subprocess.run('bash shfiles/takeoff.sh', shell=True)
         elif choice == '4':
             subprocess.run('bash shfiles/land.sh', shell=True)
+        elif choice == '5':
+            launch_process('bash shfiles/record.sh', f'{log_dir}/record.log')
         elif choice == '0':
             print("退出程序")
             break

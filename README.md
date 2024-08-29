@@ -53,7 +53,7 @@
   chmod +x *.sh
   
   
-  # 4 增加USB端口的操作权限，避免每次都要sudu chmod +x /dev/ttyACM0
+  # 4 增加USB端口的操作权限，避免每次都要sudu chmod +x /dev/ttyUSB_PX4
   # 注意coolas是登录的用户名，如果都按照环境配置说明了就没问题，如果不是，按照实际情况修改。
   sudo usermod -aG dialout coolas
   
